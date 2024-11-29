@@ -4916,7 +4916,7 @@ CheckDataset:
 <p>通过命令行的方式进行推理预测，只需如下一条命令。运行以下代码前，请您下载<a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_semantic_segmentation_002.png">示例图片</a>到本地。</p>
 <p><div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>-c<span class="w"> </span>paddlex/configs/semantic_segmentation/PP-LiteSeg-T.yaml<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>-o<span class="w"> </span>Global.mode<span class="o">=</span>predict<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-o<span class="w"> </span>Predict.model_dir<span class="o">=</span><span class="s2">&quot;./output/best_model&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-o<span class="w"> </span>Predict.model_dir<span class="o">=</span><span class="s2">&quot;./output/best_model/inference&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>-o<span class="w"> </span>Predict.input<span class="o">=</span><span class="s2">&quot;general_semantic_segmentation_002.png&quot;</span>
 </span></code></pre></div>
 与模型训练和评估类似，需要如下几步：</p>
