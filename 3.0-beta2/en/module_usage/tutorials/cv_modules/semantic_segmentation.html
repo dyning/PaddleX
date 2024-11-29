@@ -4904,7 +4904,7 @@ CheckDataset:
 <p>To perform inference predictions via the command line, use the following command. Before running the following code, please download the <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_semantic_segmentation_002.png">demo image</a> to your local machine.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>-c<span class="w"> </span>paddlex/configs/semantic_segmentation/PP-LiteSeg-T.yaml<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>-o<span class="w"> </span>Global.mode<span class="o">=</span>predict<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-o<span class="w"> </span>Predict.model_dir<span class="o">=</span><span class="s2">&quot;./output/best_model&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>-o<span class="w"> </span>Predict.model_dir<span class="o">=</span><span class="s2">&quot;./output/best_model/inference&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>-o<span class="w"> </span>Predict.input<span class="o">=</span><span class="s2">&quot;general_semantic_segmentation_002.png&quot;</span>
 </span></code></pre></div>
 <p>Similar to model training and evaluation, the following steps are required:</p>
@@ -4916,7 +4916,7 @@ CheckDataset:
 <p>Set the mode to model inference prediction: <code>-o Global.mode=predict</code></p>
 </li>
 <li>
-<p>Specify the model weights path: -o Predict.model_dir="./output/best_accuracy/inference"</p>
+<p>Specify the model weights path: <code>-o Predict.model_dir="./output/best_model/inference"</code></p>
 </li>
 </ul>
 <p>Specify the input data path: <code>-o Predict.inputh="..."</code> Other related parameters can be set by modifying the fields under Global and Predict in the <code>.yaml</code> configuration file. For details, refer to PaddleX Common Model Configuration File Parameter Description.</p>
