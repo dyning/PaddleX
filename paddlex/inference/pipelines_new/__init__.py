@@ -100,7 +100,6 @@ def create_pipeline(
     device: str = None,
     pp_option: PaddlePredictorOption = None,
     use_hpip: bool = False,
-    hpi_params: Optional[Dict[str, Any]] = None,
     *args,
     **kwargs,
 ) -> BasePipeline:
@@ -115,7 +114,6 @@ def create_pipeline(
         device (str, optional): The device to run the pipeline on. Defaults to None.
         pp_option (PaddlePredictorOption, optional): The options for the PaddlePredictor. Defaults to None.
         use_hpip (bool, optional): Whether to use high-performance inference (hpip) for prediction. Defaults to False.
-        hpi_params (Optional[Dict[str, Any]], optional): Additional parameters for hpip. Defaults to None.
         *args: Additional positional arguments.
         **kwargs: Additional keyword arguments.
 
@@ -134,7 +132,6 @@ def create_pipeline(
         device=device,
         pp_option=pp_option,
         use_hpip=use_hpip,
-        hpi_params=hpi_params,
         *args,
         **kwargs,
     )
@@ -152,6 +149,9 @@ def create_chat_bot(config: Dict, *args, **kwargs) -> BaseChat:
     Returns:
         BaseChat: An instance of the chat bot class corresponding to the 'model_name' in the config.
     """
+    if "chat_bot_config_error" in config:
+        raise ValueError(config["chat_bot_config_error"])
+
     api_type = config["api_type"]
     chat_bot = BaseChat.get(api_type)(config)
     return chat_bot
@@ -173,6 +173,8 @@ def create_retriever(
     Returns:
         BaseRetriever: An instance of a retriever class corresponding to the 'model_name' in the config.
     """
+    if "retriever_config_error" in config:
+        raise ValueError(config["retriever_config_error"])
     api_type = config["api_type"]
     retriever = BaseRetriever.get(api_type)(config)
     return retriever
@@ -194,6 +196,8 @@ def create_prompt_engeering(
     Returns:
         BaseGeneratePrompt: An instance of a prompt engineering class corresponding to the 'task_type' in the config.
     """
+    if "pe_config_error" in config:
+        raise ValueError(config["pe_config_error"])
     task_type = config["task_type"]
     pe = BaseGeneratePrompt.get(task_type)(config)
     return pe

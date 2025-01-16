@@ -54,9 +54,14 @@ visual_predict_res = pipeline.visual_predict(
 # ####[TODO] 增加类别信息
 visual_info_list = []
 for res in visual_predict_res:
-    # res['layout_parsing_result'].save_results("./output/")
-    # print(res["visual_info"])
     visual_info_list.append(res["visual_info"])
+    layout_parsing_result = res["layout_parsing_result"]
+    print(layout_parsing_result)
+    layout_parsing_result.print()
+    layout_parsing_result.save_to_img("./output")
+    layout_parsing_result.save_to_json("./output")
+    layout_parsing_result.save_to_xlsx("./output")
+    layout_parsing_result.save_to_html("./output")
 
 pipeline.save_visual_info_list(
     visual_info_list, "./res_visual_info/tmp_visual_info.json"
@@ -66,7 +71,7 @@ visual_info_list = pipeline.load_visual_info_list(
     "./res_visual_info/tmp_visual_info.json"
 )
 
-vector_info = pipeline.build_vector(visual_info_list)
+vector_info = pipeline.build_vector(visual_info_list, flag_save_bytes_vector=True)
 
 pipeline.save_vector(vector_info, "./res_visual_info/tmp_vector_info.json")
 
