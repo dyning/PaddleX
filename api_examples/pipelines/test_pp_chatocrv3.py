@@ -31,7 +31,6 @@ visual_predict_res = pipeline.visual_predict(
     use_table_recognition=True,
 )
 
-# ####[TODO] 增加类别信息
 visual_info_list = []
 for res in visual_predict_res:
     visual_info_list.append(res["visual_info"])

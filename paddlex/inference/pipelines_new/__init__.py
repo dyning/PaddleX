@@ -82,7 +82,7 @@ def load_pipeline_config(pipeline_name: str) -> Dict[str, Any]:
     Raises:
         Exception: If the config file of pipeline does not exist.
     """
-    if not Path(pipeline_name).exists():
+    if not (pipeline_name.endswith(".yml") or pipeline_name.endswith(".yaml")):
         pipeline_path = get_pipeline_path(pipeline_name)
         if pipeline_path is None:
             raise Exception(
