@@ -19,7 +19,7 @@ import cv2
 from ..base import BasePipeline
 from ..components import CropByBoxes
 from .utils import get_neighbor_boxes_idx
-from .table_recognition_post_processing import get_table_recognition_res
+from .table_recognition_post_processing_v2 import get_table_recognition_res
 from .result import SingleTableRecognitionResult, TableRecognitionResult
 from ....utils import logging
 from ...utils.pp_option import PaddlePredictorOption
@@ -32,10 +32,10 @@ from ..doc_preprocessor.result import DocPreprocessorResult
 from ...models_new.object_detection.result import DetResult
 
 
-class TableRecognitionPipeline(BasePipeline):
+class TableRecognitionPipelineV2(BasePipeline):
     """Table Recognition Pipeline"""
 
-    entities = ["table_recognition"]
+    entities = ["table_recognition_v2"]
 
     def __init__(
         self,
@@ -43,6 +43,7 @@ class TableRecognitionPipeline(BasePipeline):
         device: str = None,
         pp_option: PaddlePredictorOption = None,
         use_hpip: bool = False,
+        hpi_params: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Initializes the layout parsing pipeline.
 
@@ -51,9 +52,12 @@ class TableRecognitionPipeline(BasePipeline):
             device (str, optional): Device to run the predictions on. Defaults to None.
             pp_option (PaddlePredictorOption, optional): PaddlePredictor options. Defaults to None.
             use_hpip (bool, optional): Whether to use high-performance inference (hpip) for prediction. Defaults to False.
+            hpi_params (Optional[Dict[str, Any]], optional): HPIP parameters. Defaults to None.
         """
 
-        super().__init__(device=device, pp_option=pp_option, use_hpip=use_hpip)
+        super().__init__(
+            device=device, pp_option=pp_option, use_hpip=use_hpip, hpi_params=hpi_params
+        )
 
         self.use_doc_preprocessor = config.get("use_doc_preprocessor", True)
         if self.use_doc_preprocessor:
@@ -75,12 +79,36 @@ class TableRecognitionPipeline(BasePipeline):
             )
             self.layout_det_model = self.create_model(layout_det_config)
 
-        table_structure_config = config.get("SubModules", {}).get(
-            "TableStructureRecognition",
-            {"model_config_error": "config error for table_structure_model!"},
+        table_cls_config = config.get("SubModules", {}).get(
+            "TableClassification",
+            {"model_config_error": "config error for table_classification_model!"},
         )
-        self.table_structure_model = self.create_model(table_structure_config)
+        self.table_cls_model = self.create_model(table_cls_config)
 
+        wired_table_rec_config = config.get("SubModules", {}).get(
+            "WiredTableStructureRecognition",
+            {"model_config_error": "config error for wired_table_structure_model!"},
+        )
+        self.wired_table_rec_model = self.create_model(wired_table_rec_config)
+
+        wireless_table_rec_config = config.get("SubModules", {}).get(
+            "WirelessTableStructureRecognition",
+            {"model_config_error": "config error for wireless_table_structure_model!"},
+        )
+        self.wireless_table_rec_model = self.create_model(wireless_table_rec_config)
+        
+        wired_table_cells_det_config = config.get("SubModules", {}).get(
+            "WiredTableCellsDetection",
+            {"model_config_error": "config error for wired_table_cells_detection_model!"},
+        )
+        self.wired_table_cells_detection_model = self.create_model(wired_table_cells_det_config)
+
+        wireless_table_cells_det_config = config.get("SubModules", {}).get(
+            "WirelessTableCellsDetection",
+            {"model_config_error": "config error for wireless_table_cells_detection_model!"},
+        )
+        self.wireless_table_cells_detection_model = self.create_model(wireless_table_cells_det_config)
+    
         self.use_ocr_model = config.get("use_ocr_model", True)
         if self.use_ocr_model:
             general_ocr_config = config.get("SubPipelines", {}).get(
@@ -218,6 +246,25 @@ class TableRecognitionPipeline(BasePipeline):
             doc_preprocessor_image = image_array
         return doc_preprocessor_res, doc_preprocessor_image
 
+    def extract_results(self, pred, task):
+        if task == "cls":
+            return pred['label_names'][np.argmax(pred['scores'])]
+        elif task == "det":
+            threshold = 0.0
+            result = []
+            if 'boxes' in pred and isinstance(pred['boxes'], list):
+                for box in pred['boxes']:
+                    if isinstance(box, dict) and 'score' in box and 'coordinate' in box:
+                        score = box['score']
+                        coordinate = box['coordinate']
+                        if isinstance(score, float) and score > threshold:
+                            result.append(coordinate)
+            return result
+        elif task == "table_stru":
+            return pred["structure"]
+        else:
+            return None
+
     def predict_single_table_recognition_res(
         self,
         image_array: np.ndarray,
@@ -237,9 +284,18 @@ class TableRecognitionPipeline(BasePipeline):
         Returns:
             SingleTableRecognitionResult: single table recognition result.
         """
-        table_structure_pred = next(self.table_structure_model(image_array))
+        table_cls_pred = next(self.table_cls_model(image_array))
+        table_cls_result = self.extract_results(table_cls_pred, "cls")
+        if table_cls_result == "wired_table":
+            table_structure_pred = next(self.wired_table_rec_model(image_array))
+            table_cells_pred = next(self.wired_table_cells_detection_model(image_array))
+        elif table_cls_result == "wireless_table":
+            table_structure_pred = next(self.wireless_table_rec_model(image_array))
+            table_cells_pred = next(self.wireless_table_cells_detection_model(image_array))
+        table_structure_result = self.extract_results(table_structure_pred, "table_stru")
+        table_cells_result = self.extract_results(table_cells_pred, "det")
         single_table_recognition_res = get_table_recognition_res(
-            table_box, table_structure_pred, overall_ocr_res
+            table_box, table_structure_result, table_cells_result, overall_ocr_res
         )
         neighbor_text = ""
         if flag_find_nei_text:
@@ -249,7 +305,7 @@ class TableRecognitionPipeline(BasePipeline):
             if len(match_idx_list) > 0:
                 for idx in match_idx_list:
                     neighbor_text += overall_ocr_res["rec_texts"][idx] + "; "
-        single_table_recognition_res["neighbor_texts"] = neighbor_text
+        single_table_recognition_res["neighbor_text"] = neighbor_text
         return single_table_recognition_res
 
     def predict(

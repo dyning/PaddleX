@@ -41,7 +41,6 @@ class OCRPipeline(BasePipeline):
         device: Optional[str] = None,
         pp_option: Optional[PaddlePredictorOption] = None,
         use_hpip: bool = False,
-        hpi_params: Optional[Dict[str, Any]] = None,
     ) -> None:
         """
         Initializes the class with given configurations and options.
@@ -51,11 +50,8 @@ class OCRPipeline(BasePipeline):
             device (str, optional): Device to run the predictions on. Defaults to None.
             pp_option (PaddlePredictorOption, optional): PaddlePredictor options. Defaults to None.
             use_hpip (bool, optional): Whether to use high-performance inference (hpip) for prediction. Defaults to False.
-            hpi_params (Optional[Dict[str, Any]], optional): HPIP parameters. Defaults to None.
         """
-        super().__init__(
-            device=device, pp_option=pp_option, use_hpip=use_hpip, hpi_params=hpi_params
-        )
+        super().__init__(device=device, pp_option=pp_option, use_hpip=use_hpip)
 
         self.use_doc_preprocessor = config.get("use_doc_preprocessor", True)
         if self.use_doc_preprocessor:
@@ -398,8 +394,10 @@ class OCRPipeline(BasePipeline):
                     if rec_res["rec_score"] >= text_rec_score_thresh:
                         single_img_res["rec_texts"].append(rec_res["rec_text"])
                         single_img_res["rec_scores"].append(rec_res["rec_score"])
-                        single_img_res["rec_polys"].append(dt_polys[sno])
-
-            rec_boxes = convert_points_to_boxes(single_img_res["rec_polys"])
-            single_img_res["rec_boxes"] = rec_boxes
+                        single_img_res["rec_polys"].append(dt_polys[rno])
+            if self.text_type == "general":
+                rec_boxes = convert_points_to_boxes(single_img_res["rec_polys"])
+                single_img_res["rec_boxes"] = rec_boxes
+            else:
+                single_img_res["rec_boxes"] = np.array([])
             yield OCRResult(single_img_res)

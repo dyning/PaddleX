@@ -79,6 +79,8 @@ class BasePipeline(ABC, metaclass=AutoRegisterABCMetaClass):
             raise ValueError(config["model_config_error"])
 
         model_dir = config.get("model_dir", None)
+        hpi_params = config.get("hpi_params", None)
+
         from .. import create_predictor
 
         model = create_predictor(
