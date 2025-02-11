@@ -16,14 +16,14 @@ from paddlex import create_pipeline
 
 pipeline = create_pipeline(pipeline="layout_parsing")
 
-output = pipeline.predict(
-    "./test_samples/demo_paper.png",
-    use_doc_orientation_classify=False,
-    use_doc_unwarping=False,
-    use_common_ocr=True,
-    use_seal_recognition=True,
-    use_table_recognition=True,
-)
+# output = pipeline.predict(
+#     "./test_samples/demo_paper.png",
+#     use_doc_orientation_classify=False,
+#     use_doc_unwarping=False,
+#     use_common_ocr=True,
+#     use_seal_recognition=True,
+#     use_table_recognition=True,
+# )
 
 # output = pipeline.predict(
 #     "./test_samples/layout.jpg",
@@ -51,6 +51,15 @@ output = pipeline.predict(
 #     use_seal_recognition=True,
 #     use_table_recognition=True,
 # )
+
+output = pipeline.predict(
+    "./test_samples/layout_double_column.png",
+    use_doc_orientation_classify=False,
+    use_doc_unwarping=False,
+    use_common_ocr=True,
+    use_seal_recognition=True,
+    use_table_recognition=True,
+)
 
 for res in output:
     res.print()
