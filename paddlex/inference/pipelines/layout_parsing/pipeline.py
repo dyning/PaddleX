@@ -147,29 +147,6 @@ class LayoutParsingPipeline(BasePipeline):
 
         return
 
-    # def get_text_paragraphs_ocr_res(
-    #     self, overall_ocr_res: OCRResult, layout_det_res: DetResult
-    # ) -> OCRResult:
-    #     """
-    #     Retrieves the OCR results for text paragraphs, excluding those of formulas, tables, and seals.
-
-    #     Args:
-    #         overall_ocr_res (OCRResult): The overall OCR result containing text information.
-    #         layout_det_res (DetResult): The detection result containing the layout information of the document.
-
-    #     Returns:
-    #         OCRResult: The OCR result for text paragraphs after excluding formulas, tables, and seals.
-    #     """
-    #     object_boxes = []
-    #     for box_info in layout_det_res["boxes"]:
-    #         if box_info["label"].lower() in ["formula", "table", "seal"]:
-    #             object_boxes.append(box_info["coordinate"])
-    #     object_boxes = np.array(object_boxes)
-    #     sub_regions_ocr_res = get_sub_regions_ocr_res(
-    #         overall_ocr_res, object_boxes, flag_within=False
-    #     )
-    #     return sub_regions_ocr_res
-
     def get_layout_parsing_res(
         self,
         image: list,
@@ -512,13 +489,6 @@ class LayoutParsingPipeline(BasePipeline):
                 )
             else:
                 overall_ocr_res = {}
-
-            # if model_settings["use_general_ocr"]:
-            #     text_paragraphs_ocr_res = self.get_text_paragraphs_ocr_res(
-            #         overall_ocr_res, layout_det_res
-            #     )
-            # else:
-            #     text_paragraphs_ocr_res = {}
 
             if model_settings["use_table_recognition"]:
                 table_res_all = next(
