@@ -107,6 +107,13 @@ sudo apt-get install texlive texlive-latex-base texlive-latex-extra -y
 <td>无</td>
 <td>无</td>
 </tr>
+<tr>
+<td><code>use_hpip</code></td>
+<td>是否启用高性能推理</td>
+<td><code>bool</code></td>
+<td>无</td>
+<td><code>False</code></td>
+</tr>
 </table>
 
 * 其中，`model_name` 必须指定，指定 `model_name` 后，默认使用 PaddleX 内置的模型参数，在此基础上，指定 `model_dir` 时，使用用户自定义的模型。
@@ -133,7 +140,7 @@ sudo apt-get install texlive texlive-latex-base texlive-latex-extra -y
   <li><b>文件路径</b>，如图像文件的本地路径：<code>/root/data/img.jpg</code></li>
   <li><b>URL链接</b>，如图像文件的网络URL：<a href = "https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_formula_rec_001.png">示例</a></li>
   <li><b>本地目录</b>，该目录下需包含待预测数据文件，如本地路径：<code>/root/data/</code></li>
-  <li><b>列表</b>，列表元素需为上述类型数据，如<code>[numpy.ndarray, numpy.ndarray]</code>，<code>[\"/root/data/img1.jpg\", \"/root/data/img2.jpg\"]</code>，<code>[\"/root/data1\", \"/root/data2\"]</code>，<code>[{\"img\": \"/root/data1\"}, {\"img\": \"/root/data2/img.jpg\"}]</code></li>
+  <li><b>列表</b>，列表元素需为上述类型数据，如<code>[numpy.ndarray, numpy.ndarray]</code>，<code>[\"/root/data/img1.jpg\", \"/root/data/img2.jpg\"]</code>，<code>[\"/root/data1\", \"/root/data2\"]</code></li>
 </ul>
 </td>
 <td>无</td>

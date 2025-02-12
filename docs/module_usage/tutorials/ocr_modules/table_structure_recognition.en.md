@@ -42,7 +42,7 @@ SLANet_plus is an enhanced version of SLANet, a table structure recognition mode
 
 
 ## III. Quick Integration
-&gt; ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to [PaddleX Local Installation Guide](../../../installation/installation.en.md)
+> ❗ Before quick integration, please install the PaddleX wheel package. For detailed instructions, refer to [PaddleX Local Installation Guide](../../../installation/installation.en.md)
 
 After installing the wheel package, a few lines of code can complete the inference of the table structure recognition module. You can easily switch models within this module and integrate the model inference into your project. Before running the following code, please download the [demo image](https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg) to your local machine.
 
@@ -119,12 +119,11 @@ Relevant methods, parameters, and explanations are as follows:
 <td><code>Python Var</code>/<code>str</code>/<code>dict</code>/<code>list</code></td>
 <td>
 <ul>
-<li><b>Python variable</b>, such as image data represented by <code>numpy.ndarray</code></li>
-<li><b>File path</b>, such as the local path of an image file: <code>/root/data/img.jpg</code></li>
-<li><b>URL link</b>, such as the network URL of an image file: <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/table_recognition.jpg">Example</a></li>
-<li><b>Local directory</b>, this directory must contain data files to be predicted, such as the local path: <code>/root/data/</code></li>
-<li><b>Dictionary</b>, the <code>key</code> of the dictionary must correspond to the specific task, such as <code>"img"</code> for image classification tasks. The <code>val</code> of the dictionary supports the above types of data, for example: <code>{"img": "/root/data1"}</code></li>
-<li><b>List</b>, elements of the list must be of the above types of data, such as <code>[numpy.ndarray, numpy.ndarray]</code>, <code>["/root/data/img1.jpg", "/root/data/img2.jpg"]</code>, <code>["/root/data1", "/root/data2"]</code>, <code>[{"img": "/root/data1"}, {"img": "/root/data2/img.jpg"}]</code></li>
+<li><b>Python Variable</b>, such as image data represented by <code>numpy.ndarray</code></li>
+<li><b>File Path</b>, such as the local path of an image file: <code>/root/data/img.jpg</code></li>
+<li><b>URL Link</b>, such as the web URL of an image file: <a href="https://paddle-model-ecology.bj.bcebos.com/paddlex/imgs/demo_image/general_ocr_rec_001.png">Example</a></li>
+<li><b>Local Directory</b>, the directory should contain the data files to be predicted, such as the local path: <code>/root/data/</code></li>
+<li><b>List</b>, the elements of the list should be of the above-mentioned data types, such as <code>[numpy.ndarray, numpy.ndarray]</code>, <code>[\"/root/data/img1.jpg\", \"/root/data/img2.jpg\"]</code>, <code>[\"/root/data1\", \"/root/data2\"]</code></li>
 </ul>
 </td>
 <td>None</td>
@@ -394,7 +393,7 @@ The model can be directly integrated into the PaddleX pipeline or directly into 
 
 1.<b>Pipeline Integration</b>
 
-The table structure recognition module can be integrated into PaddleX pipelines such as the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction.en.md). Simply replace the model path to update the table structure recognition module in the relevant pipelines. For pipeline integration, you can deploy your obtained model using high-performance inference and service-oriented deployment.
+The table structure recognition module can be integrated into PaddleX pipelines such as the [General Table Recognition Pipeline](../../../pipeline_usage/tutorials/ocr_pipelines/table_recognition.en.md) and the [Document Scene Information Extraction Pipeline v3 (PP-ChatOCRv3-doc)](../../../pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v3.en.md). Simply replace the model path to update the table structure recognition module in the relevant pipelines. For pipeline integration, you can deploy your obtained model using high-performance inference and service-oriented deployment.
 
 2.<b>Module Integration</b>
 
