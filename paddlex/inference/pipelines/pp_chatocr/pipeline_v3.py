@@ -160,24 +160,18 @@ class PP_ChatOCRv3_Pipeline(PP_ChatOCR_Pipeline):
         Returns:
             dict: The decoded visual information.
         """
-        text_paragraphs_ocr_res = layout_parsing_result["text_paragraphs_ocr_res"]
-        seal_res_list = layout_parsing_result["seal_res_list"]
+
         normal_text_dict = {}
-
-        for seal_res in seal_res_list:
-            for text in seal_res["rec_texts"]:
-                layout_type = "印章"
-                if layout_type not in normal_text_dict:
-                    normal_text_dict[layout_type] = f"{text}"
-                else:
-                    normal_text_dict[layout_type] += f"\n {text}"
-
-        for text in text_paragraphs_ocr_res["rec_texts"]:
-            layout_type = "words in text block"
-            if layout_type not in normal_text_dict:
-                normal_text_dict[layout_type] = text
+        parsing_res_list = layout_parsing_result["parsing_res_list"]
+        for pno in range(len(parsing_res_list)):
+            label = parsing_res_list[pno]["block_label"]
+            content = parsing_res_list[pno]["block_content"]
+            if label in ["table", "formula"]:
+                continue
+            if label not in normal_text_dict:
+                normal_text_dict["words in " + label] = content
             else:
-                normal_text_dict[layout_type] += f"\n {text}"
+                normal_text_dict["words in " + label] += f"\n {content}"
 
         table_res_list = layout_parsing_result["table_res_list"]
         table_text_list = []
