@@ -44,9 +44,21 @@ PaddleX 3.0 is a low-code development tool for AI models built on the PaddlePadd
 
 ## 📣 Recent Updates
 
-🔥🔥 **"PaddleX Document Information Personalized Extraction Upgrade"**, PP-ChatOCRv3 innovatively provides custom development functions for OCR models based on data fusion technology, offering stronger model fine-tuning capabilities. Millions of high-quality general OCR text recognition data are automatically integrated into vertical model training data at a specific ratio, solving the problem of weakened general text recognition capabilities caused by vertical model training in the industry. Suitable for practical scenarios in industries such as automated office, financial risk control, healthcare, education and publishing, and legal and government sectors. **October 24th (Thursday) 19:00** Join our live session for an in-depth analysis of the open-source version of PP-ChatOCRv3 and the outstanding advantages of PaddleX 3.0 Beta1 in terms of accuracy and speed. [Registration Link](https://www.wjx.top/vm/wpPu8HL.aspx?udsid=994465)
+🔥🔥 **2025.2.14**, PaddleX v3.0.0rc0 major upgrade. This version fully adapts to PaddlePaddle 3.0rc0, with the following core upgrades:
 
-> [❗ Get more courses for free](https://aistudio.baidu.com/education/group/info/32160)
+- **Added 12 high-value pipelines**, launching self-developed **[Layout Parsing v2 Pipeline](docs/pipeline_usage/tutorials/ocr_pipelines/layout_parsing_v2.en.md)**, **[PP-ChatOCRv4-doc Pipeline](docs/pipeline_usage/tutorials/information_extraction_pipelines/document_scene_information_extraction_v4.en.md)**, **[Table Recognition v2 Pipeline](docs/pipeline_usage/tutorials/ocr_pipelines/table_recognition_v2.en.md)**. Additionally, new pipelines for document processing, rotated box detection, open vocabulary detection/segmentation, video analysis, multilingual speech recognition, 3D, and other scenarios have been added.
+
+- **Expanded 48 cutting-edge models**, including the major releases in the OCR field such as **Document Layout Detection Model [PP-DocLayout](docs/module_usage/tutorials/ocr_modules/layout_detection.en.md)**, **Formula Recognition Model [PP-FormulaNet](docs/module_usage/tutorials/ocr_modules/formula_recognition.en.md)**, **Table Structure Recognition Model [SLANeXt](docs/module_usage/tutorials/ocr_modules/table_structure_recognition.en.md)**, **Text Recognition Model [PP-OCRv4_server_rec_doc](docs/module_usage/tutorials/ocr_modules/text_recognition.en.md)**. In the CV field, models for 3D detection, human keypoints, open vocabulary detection/segmentation, and in the speech recognition field, models from the Whisper series, among others.
+
+- **Optimized and upgraded the inference APIs for models and pipelines**, supporting more parameter configurations to enhance the flexibility of model and pipeline inference. [Details](docs/API_change_log/v3.0.0rc.en.md).
+
+- **Expanded hardware support:** added support for Suoyuan GCU (90+ models), and significantly increased the number of models for Ascend NPU/Kunlunxin XPU/Cambricon MLU/Hygon DCU.
+
+- **Upgraded full-scenario deployment capabilities:**
+  - High-performance inference supports one-click installation, Windows systems, and 220+ models, with the core library ultra-infer open-sourced;
+  - Serving deployment added a highly stable solution, supporting dynamic configuration optimization.
+
+- **Enhanced system compatibility:** adapted to Windows training/inference, fully supporting Python 3.11/3.12.
 
 🔥🔥 **11.15, 2024**, PaddleX 3.0 Beta2 open source version is officially released, PaddleX 3.0 Beta2 is fully compatible with the PaddlePaddle 3.0b2 version. <b>This update introduces new pipelines for general image recognition, face recognition, vehicle attribute recognition, and pedestrian attribute recognition. We have also developed 42 new models to fully support the Ascend 910B, with extensive documentation available on [GitHub Pages](https://paddlepaddle.github.io/PaddleX/latest/en/index.html).</b>
 
@@ -179,23 +191,23 @@ In addition, PaddleX provides developers with a full-process efficient model tra
     </tr>
         <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/small_object_detection.html">Small Object Detection</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387975/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
         <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_multi_label_classification.html">Multi-label Image Classification</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387974/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/image_anomaly_detection.html">Image Anomaly Detection</a></td>
@@ -289,23 +301,23 @@ In addition, PaddleX provides developers with a full-process efficient model tra
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/formula_recognition.html">Formula Recognition</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387976/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/seal_recognition.html">Seal Recognition</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387977/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>✅</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/ocr_pipelines/doc_preprocessor.html">Document Image Preprocessing</a></td>
@@ -318,7 +330,7 @@ In addition, PaddleX provides developers with a full-process efficient model tra
         <td>🚧</td>
     </tr>
     <tr>
-        <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html>Image Recognition</a></td>
+        <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/general_image_recognition.html">Image Recognition</a></td>
         <td>🚧</td>
         <td>✅</td>
         <td>🚧</td>
@@ -329,23 +341,23 @@ In addition, PaddleX provides developers with a full-process efficient model tra
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/pedestrian_attribute.html">Pedestrian Attribute Recognition</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387978/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/vehicle_attribute.html">Vehicle Attribute Recognition</a></td>
-        <td>🚧</td>
+        <td><a href="https://aistudio.baidu.com/community/app/387979/webUI?source=appCenter">Link</a></td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
         <td>🚧</td>
         <td>✅</td>
-        <td>🚧</td>
+        <td>✅</td>
     </tr>
     <tr>
         <td><a href="https://paddlepaddle.github.io/PaddleX/latest/en/pipeline_usage/tutorials/cv_pipelines/face_recognition.html">Face Recognition</a></td>
@@ -464,6 +476,55 @@ In addition, PaddleX provides developers with a full-process efficient model tra
     <td>🚧</td>
     <td>🚧</td>
     <td>🚧</td>
+  </tr>
+  <tr>
+    <td>Multi-label Image Classification</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>✅</td>
+  </tr>
+  <tr>
+    <td>Pedestrian Attribute Recognition</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>🚧</td>
+  </tr>
+  <tr>
+    <td>Vehicle Attribute Recognition</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>🚧</td>
+  </tr>
+  <tr>
+    <td>Image Recognition</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>✅</td>
+    <td>✅</td>
+  </tr>
+  <tr>
+    <td>Seal Recognition</td>
+    <td>✅</td>
+    <td>🚧</td>
+    <td>🚧</td>
+    <td>🚧</td>
+  </tr>
+  <tr>
+    <td>Image Anomaly Detection</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
+  </tr>
+  <tr>
+    <td>Face Recognition</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
   </tr>
 </table>
 
@@ -773,7 +834,7 @@ For other pipelines in Python scripts, just adjust the `pipeline` parameter of t
 
 * <details open>
   <summary> <b> 🌐 3D </b></summary>
-  
+
   * [🚗 3D Multimodal Fusion Detection Module Usage Tutorial](https://paddlepaddle.github.io/PaddleX/latest/en/module_usage/tutorials/cv_modules/3d_bev_detection.html)
 
 * <details open>
